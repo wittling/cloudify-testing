@@ -1,0 +1,156 @@
+tosca_definitions_version: cloudify_dsl_1_3
+
+
+description: >
+  This blueprint contains nodes from Instance blueprint, imported using
+  namespaces mechanism, and one node of type cloudify.nodes.Root or derived from
+  it, which contains all of the necessary data about FortiManager, to which in
+  the end the newly created FortiGate should be added.
+
+  On install workflow execution, it creates an Instance inside the Tenant passed
+  in inputs. It also attaches all necessary ports, volumes and keypair to it.
+  In the end, it registers the newly created FortiGate VM in FortiManager.
+
+  On uninstall workflow execution, it deletes the FortiGate VM from
+  FortiManager, detach the external resources from the Instance and remove it
+  from the VIM.
+
+
+imports:
+  - http://cloudify.co/spec/cloudify/4.6/types.yaml
+  - plugin:cloudify-utilities-plugin?version=>=1.14.0
+  - instance--blueprint:volume-instance-blueprint
+
+
+inputs:
+
+  fortimanager_username:
+    description: >
+      Required. Name of user in FortiManager.
+    type: string
+
+  fortimanager_password:
+    description: >
+      Required. User password in FortiManager.
+    type: string
+
+  fortimanager_ip:
+    description: >
+      Required. The IPv4 address of FortiManager.
+    type: string
+
+  fortigate_user:
+    description: >
+      Not required. Name of user in FortiGate.
+    type: string
+    default: admin
+
+  fortigate_password:
+    description: >
+      Not required. User password in FortiGate.
+    type: string
+    default: ''
+
+
+node_templates:
+
+  fortimanager:
+    type: cloudify.rest.BunchRequests
+    properties:
+      hosts:
+        - { get_input: fortimanager_ip }
+      port: 443
+      ssl: true
+      verify: false
+      # cert:
+    interfaces:
+      cloudify.interfaces.lifecycle:
+        start:
+          implementation: rest.cloudify_rest.tasks.bunch_execute
+          inputs:
+            templates:
+              - template_file: templates/login.yaml
+                save_to: session_key
+                prerender: true
+                remove_calls: true
+                params:
+                  username: { get_input: fortimanager_username }
+                  userpass: { get_input: fortimanager_password }
+              - template_file: templates/probe.yaml
+                prerender: true
+                remove_calls: true
+                params:
+                  fortigate_ip: { get_attribute: [instance--instance, ip] }
+                  fortigate_user: { get_input: fortigate_user }
+                  fortigate_password: { get_input: fortigate_password }
+                  fortigate_name: { get_attribute: [instance--instance, name] }
+                params_attributes:
+                  session: [ session_key, session ]
+              - template_file: templates/add-device.yaml
+                save_to: task_data
+                prerender: true
+                remove_calls: true
+                params:
+                  fortigate_ip: { get_attribute: [instance--instance, ip] }
+                  fortigate_user: { get_input: fortigate_user }
+                  fortigate_password: { get_input: fortigate_password }
+                  fortigate_name: { get_attribute: [instance--instance, name] }
+                params_attributes:
+                  session: [ session_key, session ]
+              - template_file: templates/check-add-device-task-progress.yaml
+                prerender: true
+                remove_calls: true
+                params:
+                  taskid: { get_attribute: [SELF, task_data, result, 0, data, taskid] }
+                params_attributes:
+                  session: [ session_key, session ]
+              - template_file: templates/logout.yaml
+                prerender: true
+                remove_calls: true
+                params_attributes:
+                  session: [ session_key, session ]
+        stop:
+          implementation: rest.cloudify_rest.tasks.bunch_execute
+          inputs:
+            templates:
+              - template_file: templates/login.yaml
+                save_to: session_key
+                prerender: true
+                remove_calls: true
+                params:
+                  username: { get_input: fortimanager_username }
+                  userpass: { get_input: fortimanager_password }
+              - template_file: templates/refresh-device.yaml
+                prerender: true
+                remove_calls: true
+                params_attributes:
+                  session: [ session_key, session ]
+                params:
+                  fortigate_name: { get_attribute: [instance--instance, name] }
+              - template_file: templates/remove-device.yaml
+                prerender: true
+                remove_calls: true
+                params_attributes:
+                  session: [ session_key, session ]
+                params:
+                  fortigate_name: { get_attribute: [instance--instance, name] }
+              - template_file: templates/logout.yaml
+                prerender: true
+                remove_calls: true
+                params_attributes:
+                  session: [ session_key, session ]
+    relationships:
+      - type: cloudify.relationships.connected_to
+        target: instance--instance
+
+
+capabilities:
+
+  fortigate_url:
+    description: >
+      The Fortigate FW URL address.
+    value:
+      concat:
+        - http://
+        - { get_attribute: [instance--instance, ip] }
+        - /
