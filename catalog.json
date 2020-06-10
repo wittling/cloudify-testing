@@ -1,0 +1,13 @@
+[
+  {
+    "id": "fortigate-blueprint",
+    "name": "fortigate-blueprint",
+    "description": "Deploy Fortigate Firewall",
+    "html_url": "",
+    "zip_url": "https://coxrepo.corp.cox.com/stash/projects/NFV/repos/cloudify-cluster/raw/release/5_0/blueprints/vnf/fortigate/fortigate.zip?at=refs%2Fheads%2Fmaster",
+    "readme_url": "https://coxrepo.corp.cox.com/stash/projects/NFV/repos/cloudify-cluster/raw/release/5_0/blueprints/vnf/fortigate/README.md?at=refs%2Fheads%2Fmaster",
+    "image_url": "https://s3-eu-west-1.amazonaws.com/cloudify-labs/Blueprint+Catalog/img/fortinet.png",
+    "created_at": "2017-05-11T19:32:13Z",
+    "updated_at": "2018-06-06T14:25:37Z"
+  }
+]
