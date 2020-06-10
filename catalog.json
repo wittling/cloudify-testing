@@ -1,13 +1,72 @@
 [
   {
-    "id": "fortigate-blueprint",
-    "name": "fortigate-blueprint",
-    "description": "Deploy Fortigate Firewall",
-    "html_url": "",
-    "zip_url": "https://coxrepo.corp.cox.com/stash/projects/NFV/repos/cloudify-cluster/raw/release/5_0/blueprints/vnf/fortigate/fortigate.zip?at=refs%2Fheads%2Fmaster",
-    "readme_url": "https://coxrepo.corp.cox.com/stash/projects/NFV/repos/cloudify-cluster/raw/release/5_0/blueprints/vnf/fortigate/README.md?at=refs%2Fheads%2Fmaster",
-    "image_url": "https://s3-eu-west-1.amazonaws.com/cloudify-labs/Blueprint+Catalog/img/fortinet.png",
+    "id": "hello-world-blueprint",
+    "name": "hello-world-blueprint",
+    "description": "Deploy Cloudify Hello World Application",
+    "html_url": "https://github.com/cloudify-community/blueprint-examples/hello-world-blueprint",
+    "zip_url": "https://github.com/cloudify-community/blueprint-examples/releases/download/latest/hello-world-example.zip",
+    "readme_url": "https://raw.githubusercontent.com/cloudify-community/blueprint-examples/master/hello-world-blueprint/README.md",
     "created_at": "2017-05-11T19:32:13Z",
     "updated_at": "2018-06-06T14:25:37Z"
+  },
+  {
+    "id": "Kubernetes-AWS-EKS",
+    "name": "Kubernetes-AWS-EKS",
+    "description": "Deploy Kubernetes",
+    "html_url": "https://github.com/cloudify-community/blueprint-examples/tree/master/kubernetes",
+    "zip_url": "https://github.com/cloudify-community/blueprint-examples/releases/download/latest/kubernetes-aws-eks.zip",
+    "readme_url": "https://raw.githubusercontent.com/cloudify-community/blueprint-examples/master/kubernetes/README.md",
+    "created_at": "2017-10-19T12:44:56Z",
+    "updated_at": "2018-05-16T17:26:16Z"
+  },
+  {
+    "id": "Kubernetes-Azure-AKS",
+    "name": "Kubernetes-Azure-AKS",
+    "description": "Deploy Kubernetes",
+    "html_url": "https://github.com/cloudify-community/blueprint-examples/tree/master/kubernetes",
+    "zip_url": "https://github.com/cloudify-community/blueprint-examples/releases/download/latest/kubernetes-azure-aks.zip",
+    "readme_url": "https://raw.githubusercontent.com/cloudify-community/blueprint-examples/master/kubernetes/README.md",
+    "created_at": "2017-10-19T12:44:56Z",
+    "updated_at": "2018-05-16T17:26:16Z"
+  },
+  {
+    "id": "Kubernetes-GCP-GKE",
+    "name": "Kubernetes-GCP-GKE",
+    "description": "Deploy Kubernetes",
+    "html_url": "https://github.com/cloudify-community/blueprint-examples/tree/master/kubernetes",
+    "zip_url": "https://github.com/cloudify-community/blueprint-examples/releases/download/latest/kubernetes-gcp-gke.zip",
+    "readme_url": "https://raw.githubusercontent.com/cloudify-community/blueprint-examples/master/kubernetes/README.md",
+    "created_at": "2017-10-19T12:44:56Z",
+    "updated_at": "2018-05-16T17:26:16Z"
+  },
+  {
+    "id": "Kubernetes-Kubespray",
+    "name": "kubernetes-blueprint",
+    "description": "Deploy Kubernetes",
+    "html_url": "https://github.com/cloudify-community/blueprint-examples/tree/master/kubernetes",
+    "zip_url": "https://github.com/cloudify-community/blueprint-examples/releases/download/latest/kubernetes-kubespray.zip",
+    "readme_url": "https://raw.githubusercontent.com/cloudify-community/blueprint-examples/master/kubernetes/README.md",
+    "created_at": "2017-10-19T12:44:56Z",
+    "updated_at": "2018-05-16T17:26:16Z"
+  },
+  {
+    "id": "kubernetes-plugin-example",
+    "name": "kubernetes-plugin-example",
+    "description": "Deploy Sample Kubernetes Application",
+    "html_url": "https://github.com/cloudify-community/blueprint-examples/tree/master/kubernetes",
+    "zip_url": "https://github.com/cloudify-community/blueprint-examples/releases/download/latest/kubernetes-plugin-examples-file-resource.zip",
+    "readme_url": "https://raw.githubusercontent.com/cloudify-community/blueprint-examples/master/kubernetes/README.md",
+    "created_at": "2017-10-19T12:44:56Z",
+    "updated_at": "2018-05-16T17:26:16Z"
+  },
+  {
+    "id": "getting-started",
+    "name": "getting-started-blueprint",
+    "description": "Getting Started Application",
+    "html_url": "https://github.com/cloudify-community/blueprint-examples/tree/master/kubernetes",
+    "zip_url": "https://github.com/cloudify-community/blueprint-examples/releases/download/latest/getting-started.zip",
+    "readme_url": "https://raw.githubusercontent.com/cloudify-community/blueprint-examples/master/kubernetes/README.md",
+    "created_at": "2017-10-19T12:44:56Z",
+    "updated_at": "2018-05-16T17:26:16Z"
   }
 ]
